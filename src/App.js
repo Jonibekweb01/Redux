@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch } from "react-redux";
+import { MacView } from "./components/macView";
+import { PhoneView } from "./components/phoneView";
+import { buyMac, buyRandomMac } from "./redux/mac/macAction";
+import { buyPhone, buyRandomPhone } from "./redux/phone/phoneAction";
 
 function App() {
+  const dispatch = useDispatch()
+  const dispatchCLick = () => {
+    if (dispatch(buyMac())) {
+      dispatch(buyPhone())
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <MacView />
+      <button style={{ marginTop: "20px" }} onClick={dispatchCLick}>BONUS + </button>
+      <PhoneView />
+    </>
   );
 }
 
